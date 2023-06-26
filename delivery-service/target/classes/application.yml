@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: init-example-service
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres?currentSchema=postgres
+    username: postgres
+    password: admin
+  jpa:
+    database: postgresql
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+  mvc:
+    pathmatch:
+      matching-strategy: ant-path-matcher
+
+  liquibase:
+    default-schema: postgres
+    liquibase-schema: public
+    enabled: true
+    user: postgres
+    password: admin
+    change-log: classpath:db/changelog/v1.0/changelog-v1.0.xml

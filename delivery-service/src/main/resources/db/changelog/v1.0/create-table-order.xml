@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="2" author="sergei_rendarevskii">
+
+        <!--        Прописываем создание схемы postgres(если ее нет) через sql запрос-->
+        <sql dbms="postgresql">
+            CREATE SCHEMA IF NOT EXISTS postgres;
+        </sql>
+
+        <!--        Прописываем создание таблицы order-->
+        <createTable tableName="order">
+            <column name="id" type="uuid">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="state" type="varchar(50)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="client_id" type="uuid">
+                <constraints nullable="false" foreignKeyName="client_id" references="client(id)"/>
+            </column>
+            <column name="delivery_address" type="uuid">
+                <constraints nullable="false"/>
+            </column>
+            <column name="item_count" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="delivery_time" type="timestamptz">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+    </changeSet>
+</databaseChangeLog>
