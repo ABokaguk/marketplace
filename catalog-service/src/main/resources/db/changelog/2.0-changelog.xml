@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd">
+
+    <changeSet id="2" author="sergey_balyuk">
+
+        <!--        Прописываем создание таблицы gender-->
+        <createTable tableName="gender">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="gender_name" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <!--        Прописываем создание таблицы Catalog-->
+        <createTable tableName="catalog">
+            <column autoIncrement="${autoIncrement}" name="id" type="uuid" defaultValue="gen_random_uuid()">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="category" type="bigint">
+                <constraints nullable="false" foreignKeyName="category_id" references="category(id)"/>
+            </column>
+            <column name="gender" type="bigint">
+                <constraints nullable="false" foreignKeyName="gender_id" references="gender(id)"/>
+            </column>
+            <column name="product_name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="price" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_discounted" type="boolean">
+            </column>
+            <column name="discount_price" type="bigint">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>
