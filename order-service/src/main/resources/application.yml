@@ -1,0 +1,36 @@
+server:
+  port: 9093
+
+spring:
+  profiles:
+    active: ${SPRING_PROFILE:testKafka}
+  application:
+    name: order-service
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres?currentSchema=postgres
+    username: postgres
+    password: admin
+  jpa:
+    database: postgresql
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+  mvc:
+    pathmatch:
+      matching-strategy: ant-path-matcher
+
+  liquibase:
+    default-schema: postgres
+    liquibase-schema: public
+    enabled: true
+    user: postgres
+    password: admin
+    change-log: classpath:db/db.changelog-root.xml
+
+  kafka:
+    bootstrap-servers: localhost:29092
+    consumer:
+      auto-offset-reset: earliest
+      group-id: group_id
+    test:
+      topic: cart-service
